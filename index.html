@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YLA — Yávar · Litigios y Arbitrajes</title>
+<link rel="stylesheet" href="assets/css/yla.css">
+<style>
+/* ============ HOME ============ */
+.hero{position:fixed;inset:0;overflow:hidden;background:var(--sage)}
+
+/* ----- left: headline ----- */
+.hero-left{
+  position:absolute;left:0;top:0;bottom:0;width:60%;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:var(--pad);padding-bottom:clamp(40px,7vh,90px);
+}
+.phrases{position:relative;flex:0 0 auto}
+.phrase{
+  position:absolute;left:0;bottom:0;width:100%;pointer-events:none;
+}
+.phrase.show{position:relative;pointer-events:auto}
+.phrase h1{
+  font-weight:500;
+  font-size:clamp(34px,5vw,76px);
+  line-height:1.02;
+  letter-spacing:-.018em;
+  color:var(--ink);
+  max-width:13ch;
+}
+.line{display:block;overflow:hidden;padding-bottom:.02em}
+.line > span{display:block;transform:translateY(118%);transition:transform 1s var(--ease)}
+.phrase.show .line > span{transform:translateY(0)}
+.phrase.leaving .line > span{transform:translateY(-118%);transition:transform .75s var(--ease)}
+.phrase.show .line:nth-child(1) > span{transition-delay:.05s}
+.phrase.show .line:nth-child(2) > span{transition-delay:.12s}
+.phrase.show .line:nth-child(3) > span{transition-delay:.19s}
+.phrase.show .line:nth-child(4) > span{transition-delay:.26s}
+.phrase.show .line:nth-child(5) > span{transition-delay:.33s}
+.phrase h1 em{color:var(--ink-soft)}
+
+/* advance control — thin chevron only */
+.advance{display:flex;align-items:center;margin-top:clamp(28px,4.5vh,52px)}
+.adv-btn{
+  width:clamp(48px,4.4vw,72px);height:clamp(60px,6vw,96px);
+  display:flex;align-items:center;justify-content:flex-start;color:var(--ink);
+  transition:transform .5s var(--ease);
+}
+.adv-btn:hover{transform:translateX(9px)}
+.adv-btn svg{height:100%;width:auto;overflow:visible}
+.adv-btn svg path{stroke:currentColor;stroke-width:1.3;fill:none;vector-effect:non-scaling-stroke;stroke-linecap:square;stroke-linejoin:miter}
+
+/* ----- right: column gateway ----- */
+.hero-right{
+  position:absolute;right:0;top:0;bottom:0;width:40%;
+  display:flex;
+}
+.col{position:relative;overflow:hidden;display:block;flex:1 1 0}
+.col-areas{flex:1.07}
+.col-equipo{flex:1;background:var(--sage-soft)}
+.col-contacto{flex:1.23;background:var(--petrol)}
+.col-rail{flex:0 0 var(--rail);background:var(--night)}
+
+.col-media{position:absolute;left:-4%;right:-4%;top:-12%;bottom:-12%;transition:transform 1.3s var(--ease)}
+.col-media-inner{position:absolute;inset:0;animation:drift 17s var(--ease-soft) infinite alternate}
+.col-contacto .col-media-inner{animation-duration:21s;animation-direction:alternate-reverse}
+@keyframes drift{from{transform:translateY(-2.5%)}to{transform:translateY(2.5%)}}
+.col-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.02)}
+
+/* equipo cream parallelogram, anchored bottom */
+.para{
+  position:absolute;left:0;right:0;bottom:0;height:56%;background:var(--cream);
+  clip-path:polygon(0 24%,100% 0,100% 100%,0 100%);
+  transition:transform 1.3s var(--ease);
+}
+
+/* contacto framed concrete (notched arrow) */
+.concrete-frame{
+  position:absolute;left:9%;right:6%;top:16%;height:42%;
+  clip-path:polygon(0 0,86% 0,100% 50%,86% 100%,0 100%);
+  overflow:hidden;transition:transform 1.3s var(--ease);
+}
+.concrete-frame .col-media-inner{animation-duration:19s}
+.concrete-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
+
+/* column labels */
+.col-label{
+  position:absolute;left:0;right:0;top:0;z-index:5;
+  padding:calc(var(--pad)) 16px 0;
+  font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;line-height:1.35;
+  color:var(--paper);text-shadow:0 1px 16px rgba(0,0,0,.35);
+}
+.col-equipo .col-label{color:var(--ink);text-shadow:none}
+.col .col-label .ll{display:block}
+.col-label::after{content:"";display:block;width:0;height:1px;background:currentColor;margin-top:8px;transition:width .55s var(--ease)}
+.col:hover .col-label::after{width:30px}
+.col-cta{
+  position:absolute;left:16px;bottom:var(--pad);z-index:5;
+  display:flex;align-items:center;gap:10px;color:var(--paper);
+  font-size:11px;letter-spacing:.06em;opacity:0;transform:translateY(8px);
+  transition:opacity .5s var(--ease),transform .5s var(--ease);
+}
+.col-equipo .col-cta{color:var(--ink)}
+.col:hover .col-cta{opacity:1;transform:none}
+.col-cta .arw{width:20px}
+.col::before{content:"";position:absolute;inset:0;z-index:3;background:rgba(18,24,23,0);transition:background .5s}
+.col-areas:hover::before,.col-contacto:hover::before{background:rgba(18,24,23,.12)}
+
+/* rail content */
+.col-rail{display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:var(--pad) 0}
+.col-rail .dots{color:var(--paper);margin-top:2px}
+.col-rail .v-lang{
+  writing-mode:vertical-rl;transform:rotate(180deg);color:var(--paper);
+  display:inline-flex;flex-direction:column;align-items:center;gap:9px;
+  font-size:10.5px;letter-spacing:.16em;font-weight:500;
+}
+.col-rail .v-lang button{opacity:.45;transition:opacity .3s;letter-spacing:.16em}
+.col-rail .v-lang button.on{opacity:1}
+.col-rail .v-lang .div{height:13px;width:1px;background:currentColor;opacity:.55;transform:rotate(-50deg);margin:3px 0}
+
+/* topbar tuning on home */
+.home .topbar{padding-right:var(--pad)}
+.home-mob-dots{display:none}
+@media (max-width:980px){.home-mob-dots{display:grid}}
+
+/* ===== responsive ===== */
+@media (max-width:980px){
+  .hero{position:relative;min-height:100svh}
+  .hero-left{position:relative;width:100%;min-height:78svh;justify-content:flex-end}
+  .hero-right{position:relative;width:100%;height:230px}
+  .col-rail{display:none}
+  .phrase h1{max-width:16ch}
+}
+@media (max-width:560px){
+  .hero-right{height:auto;flex-direction:column}
+  .col{height:120px}
+  .col-media{position:absolute}
+}
+</style>
+</head>
+<body class="home">
+
+<!-- top bar -->
+<header class="topbar">
+  <a class="brand" href="index.html" aria-label="YLA inicio">
+    <span class="mk-wrap"><svg class="mk" viewBox="22 29 144 67" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polygon points="165.8 91.2 127.7 53.1 127.7 53.1 123.2 48.6 123.2 48.6 123.2 48.6 118.7 53.1 118.7 53.1 82.4 89.4 68.3 89.4 68.3 73.5 69.7 72.1 69.7 72.1 107.8 34 103.3 29.5 65.2 67.7 27.1 29.5 22.6 34 60.7 72.1 60.7 72.1 62 73.5 62 89.4 62 89.4 62 95.7 62 95.7 62 95.7 67 95.7 85.1 95.7 123.2 57.6 161.3 95.7 165.8 91.2"></polygon></svg></span>
+    <span class="wordmark"><span class="w1">YÁVAR</span><br><span class="w2">LITIGIOS · ARBITRAJES</span></span>
+  </a>
+  <button class="dots home-mob-dots" data-menu-open aria-label="Menú"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></button>
+</header>
+
+<main class="hero">
+  <!-- LEFT: headline -->
+  <div class="hero-left">
+    <div class="phrases">
+      <!-- 1 -->
+      <div class="phrase show">
+        <h1 class="t-es"><span class="line"><span>Boutique de</span></span><span class="line"><span>litigios y</span></span><span class="line"><span>arbitrajes de alta</span></span><span class="line"><span>complejidad, <em>con</em></span></span><span class="line"><span><em>un sello propio.</em></span></span></h1>
+        <h1 class="t-en"><span class="line"><span>A boutique for</span></span><span class="line"><span>high-complexity</span></span><span class="line"><span>litigation &amp;</span></span><span class="line"><span>arbitration, <em>with a</em></span></span><span class="line"><span><em>signature of its own.</em></span></span></h1>
+      </div>
+      <!-- 2 -->
+      <div class="phrase">
+        <h1 class="t-es"><span class="line"><span>Negociamos con</span></span><span class="line"><span>estrategia <em>y litigamos</em></span></span><span class="line"><span><em>con convicción.</em></span></span></h1>
+        <h1 class="t-en"><span class="line"><span>We negotiate with</span></span><span class="line"><span>strategy <em>and litigate</em></span></span><span class="line"><span><em>with conviction.</em></span></span></h1>
+      </div>
+      <!-- 3 -->
+      <div class="phrase">
+        <h1 class="t-es"><span class="line"><span>Sabemos que la</span></span><span class="line"><span>excelencia nunca</span></span><span class="line"><span>es casualidad <em>y por</em></span></span><span class="line"><span><em>eso la buscamos</em></span></span><span class="line"><span><em>implacablemente.</em></span></span></h1>
+        <h1 class="t-en"><span class="line"><span>We know excellence</span></span><span class="line"><span>is never an accident,</span></span><span class="line"><span><em>and so we pursue</em></span></span><span class="line"><span><em>it relentlessly.</em></span></span></h1>
+      </div>
+      <!-- 4 -->
+      <div class="phrase">
+        <h1 class="t-es"><span class="line"><span>La cercanía no</span></span><span class="line"><span>es un servicio</span></span><span class="line"><span>adicional, <em>es parte</em></span></span><span class="line"><span><em>de cómo entendemos</em></span></span><span class="line"><span><em>lo que hacemos.</em></span></span></h1>
+        <h1 class="t-en"><span class="line"><span>Closeness is not</span></span><span class="line"><span>an added service,</span></span><span class="line"><span><em>it is part of how we</em></span></span><span class="line"><span><em>understand our work.</em></span></span></h1>
+      </div>
+    </div>
+
+    <div class="advance">
+      <button class="adv-btn" id="advBtn" aria-label="Siguiente">
+        <svg viewBox="0 0 34 60" preserveAspectRatio="xMinYMid meet"><path d="M6 8 L26 30 L6 52"></path></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- RIGHT: gateway columns -->
+  <div class="hero-right" id="cols">
+    <a class="col col-areas" href="areas.html">
+      <span class="col-label"><span class="ll t-es">Áreas de</span><span class="ll t-es">Práctica</span><span class="ll t-en">Practice</span><span class="ll t-en">Areas</span></span>
+      <div class="col-media" data-col><div class="col-media-inner"><img src="assets/img/column.png" alt=""></div></div>
+      <span class="col-cta"><span class="arw"></span><span class="t-es">Explorar</span><span class="t-en">Explore</span></span>
+    </a>
+
+    <a class="col col-equipo" href="equipo.html">
+      <span class="col-label"><span class="ll t-es">Equipo</span><span class="ll t-en">Team</span></span>
+      <div class="para" data-col></div>
+      <span class="col-cta"><span class="arw"></span><span class="t-es">Conocer</span><span class="t-en">Meet us</span></span>
+    </a>
+
+    <a class="col col-contacto" href="contacto.html">
+      <span class="col-label"><span class="ll t-es">Contacto</span><span class="ll t-en">Contact</span></span>
+      <div class="concrete-frame" data-col><div class="col-media-inner"><img src="assets/img/concrete-sm.png" alt=""></div></div>
+      <span class="col-cta"><span class="arw"></span><span class="t-es">Escríbenos</span><span class="t-en">Write us</span></span>
+    </a>
+
+    <div class="col-rail">
+      <button class="dots" data-menu-open aria-label="Menú"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></button>
+      <span class="v-lang"><button data-lang-btn="es" class="on">ESP</button><span class="div"></span><button data-lang-btn="en">ING</button></span>
+    </div>
+  </div>
+</main>
+
+<!-- shared menu overlay -->
+<div class="menu" id="menu">
+  <div class="menu-top">
+    <a class="brand" href="index.html"><span class="mk-wrap"><svg class="mk" viewBox="22 29 144 67" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polygon points="165.8 91.2 127.7 53.1 127.7 53.1 123.2 48.6 123.2 48.6 123.2 48.6 118.7 53.1 118.7 53.1 82.4 89.4 68.3 89.4 68.3 73.5 69.7 72.1 69.7 72.1 107.8 34 103.3 29.5 65.2 67.7 27.1 29.5 22.6 34 60.7 72.1 60.7 72.1 62 73.5 62 89.4 62 89.4 62 95.7 62 95.7 62 95.7 67 95.7 85.1 95.7 123.2 57.6 161.3 95.7 165.8 91.2"></polygon></svg></span><span class="wordmark"><span class="w1">YÁVAR</span><br><span class="w2">LITIGIOS · ARBITRAJES</span></span></a>
+    <button class="close" data-menu-close aria-label="Cerrar"></button>
+  </div>
+  <div class="menu-body">
+    <nav>
+      <a href="index.html" class="cur"><span class="t-es">INICIO</span><span class="t-en">HOME</span><svg class="mk mk-underline" viewBox="22 29 144 67" aria-hidden="true"><polygon points="165.8 91.2 127.7 53.1 127.7 53.1 123.2 48.6 123.2 48.6 123.2 48.6 118.7 53.1 118.7 53.1 82.4 89.4 68.3 89.4 68.3 73.5 69.7 72.1 69.7 72.1 107.8 34 103.3 29.5 65.2 67.7 27.1 29.5 22.6 34 60.7 72.1 60.7 72.1 62 73.5 62 89.4 62 89.4 62 95.7 62 95.7 62 95.7 67 95.7 85.1 95.7 123.2 57.6 161.3 95.7 165.8 91.2"></polygon></svg></a>
+      <a href="areas.html"><span class="t-es">ÁREAS DE PRÁCTICA</span><span class="t-en">PRACTICE AREAS</span></a>
+      <a href="equipo.html"><span class="t-es">EQUIPO</span><span class="t-en">TEAM</span></a>
+      <a href="contacto.html"><span class="t-es">CONTACTO</span><span class="t-en">CONTACT</span></a>
+    </nav>
+  </div>
+  <div class="menu-foot">
+    <span class="lang"><button data-lang-btn="es" class="on">ESP</button><span class="div"></span><button data-lang-btn="en">ING</button></span>
+    <div class="addr">
+      El Bosque Norte 0211<br>Oficina #437 · Las Condes<br>Santiago / Chile<br>
+      <a href="mailto:contacto@yla.cl">contacto@yla.cl</a>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/yla.js"></script>
+<script>
+(function(){
+  var phrases=[].slice.call(document.querySelectorAll('.phrase'));
+  var cols=document.getElementById('cols');
+  var cur=0, timer=null, DUR=5200;
+
+  // per-phrase parallax offsets for each gateway media (areas, equipo-para, equipo-photo, contacto)
+  var shifts={
+    areas:[0,-5,-9,-4],
+    para:[0,3,-2,4],
+    concrete:[0,4,-3,2]
+  };
+  function applyShift(i){
+    var areas=cols.querySelector('.col-areas .col-media');
+    var para=cols.querySelector('.col-equipo .para');
+    var concrete=cols.querySelector('.col-contacto .concrete-frame');
+    if(areas)areas.style.transform='translateY('+shifts.areas[i]+'%)';
+    if(para)para.style.transform='translateY('+shifts.para[i]+'%)';
+    if(concrete)concrete.style.transform='translateY('+shifts.concrete[i]+'%)';
+  }
+
+  function go(n){
+    var prev=cur; cur=(n+phrases.length)%phrases.length;
+    if(prev===cur){return;}
+    phrases[prev].classList.remove('show');
+    phrases[prev].classList.add('leaving');
+    (function(p){setTimeout(function(){p.classList.remove('leaving');},900);})(phrases[prev]);
+    phrases[cur].classList.add('show');
+    applyShift(cur);
+  }
+
+  function start(){stop();timer=setInterval(function(){go(cur+1);},DUR);}
+  function stop(){if(timer){clearInterval(timer);timer=null;}}
+
+  document.getElementById('advBtn').addEventListener('click',function(){go(cur+1);start();});
+
+  // pause on hover over gateway (let user read columns)
+  cols.addEventListener('mouseenter',stop);
+  cols.addEventListener('mouseleave',start);
+
+  document.addEventListener('visibilitychange',function(){document.hidden?stop():start();});
+
+  // init
+  applyShift(0); start();
+})();
+</script>
+</body>
+</html>

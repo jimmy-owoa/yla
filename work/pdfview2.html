@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><style>body{margin:0;background:#333} canvas{display:block;width:100%;margin:0 0 8px}</style></head>
+<body>
+<div id="root"></div>
+<script type="module">
+import * as pdfjs from 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.7.76/build/pdf.min.mjs';
+pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.7.76/build/pdf.worker.min.mjs';
+const root = document.getElementById('root');
+const pdf = await pdfjs.getDocument('diseno_web_yla.pdf').promise;
+for (const i of [5,6,7,8]){
+  const page = await pdf.getPage(i);
+  const vp = page.getViewport({scale:1.1});
+  const c = document.createElement('canvas');
+  c.width=vp.width; c.height=vp.height; c.id='pg'+i;
+  root.appendChild(c);
+  await page.render({canvasContext:c.getContext('2d'), viewport:vp}).promise;
+  window.__done = i;
+}
+window.__alldone = true;
+</script>
+</body>
+</html>
