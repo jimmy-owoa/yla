@@ -216,6 +216,8 @@ html[data-lang="en"] span.t-en,html[data-lang="en"] em.t-en{display:inline}
 /* ---------- Generic page chrome on dark ---------- */
 .on-dark{color:var(--paper)}
 .on-dark .nav-links a,.on-dark .brand{color:var(--paper)}
+/* mayor especificidad: gana sobre reglas por-página como .topbar .brand{color:var(--ink)} */
+.topbar.on-dark,.topbar.on-dark .nav-links a,.topbar.on-dark .brand,.topbar.on-dark .dots{color:var(--paper)}
 
 /* arrow bullet — long thin shaft with a connected chevron head; scales with font-size */
 .arw{display:inline-block;width:1.95em;height:1.5px;background:currentColor;position:relative;vertical-align:middle;flex:0 0 auto}

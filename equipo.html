@@ -50,6 +50,10 @@ body{background:var(--night);color:var(--paper)}
 /* triángulo night dibujado SOBRE la foto: el corte de la foto queda definido por la MISMA diagonal de la sección */
 .bottom-cream::after{content:"";position:absolute;inset:0;background:var(--night);z-index:2;pointer-events:none;
   clip-path:polygon(0 0, calc(100% - var(--sage-break)) 0, 0 var(--sage-drop))}
+/* marcador invisible para el navbar: cubre el hueco oscuro sobre Rosario + la banda night del borde izq.
+   (de ahí calc(margin gap + sage-drop)); mantiene el logo blanco hasta que el cream llega bajo él */
+.bottom-cream .nav-dark-probe{position:absolute;left:0;top:calc(-1 * clamp(40px,6vh,90px));
+  width:1px;height:calc(clamp(40px,6vh,90px) + var(--sage-drop));pointer-events:none;opacity:0}
 .bottom-cream > *{position:relative;z-index:1}
 
 /* ---------- member grid ---------- */
@@ -67,7 +71,11 @@ body{background:var(--night);color:var(--paper)}
 .top-sage .member-inner{column-gap:clamp(82px,6.8vw,112px)}
 .zone-night .member-inner{grid-template-columns:1.3fr 0.8fr;grid-template-rows:auto auto;column-gap:clamp(30px,3.6vw,64px)}
 .zone-night .m-main{grid-column:1;grid-row:1}
-.zone-night .m-cred{grid-column:1;grid-row:2;border-left:none;padding-left:0;padding-top:clamp(20px,2.8vh,30px);margin-top:clamp(14px,2vh,22px);border-top:1px solid rgba(243,242,234,.22)}
+.zone-night .m-cred{position:relative;grid-column:1;grid-row:2;border-left:none;padding-left:0;padding-top:clamp(20px,2.8vh,30px);margin-top:clamp(14px,2vh,22px);border-top:none}
+/* Fernando: la línea que separa la bio de los estudios se prolonga más allá del div, cruza el column-gap y toca la foto */
+.zone-night .m-cred::before{content:"";position:absolute;top:0;left:0;width:calc(100% + clamp(30px,3.6vw,64px));height:1px;background:rgba(243,242,234,.22)}
+/* Fernando: el texto de estudios/academia/foot ocupa ~70% del ancho en desktop (la línea sigue cruzando completa) */
+.zone-night .cred-group,.zone-night .cred-foot{max-width:55%}
 .zone-night .m-photo{grid-column:2;grid-row:1/3;align-self:stretch;aspect-ratio:auto;min-height:clamp(360px,52vh,560px)}
 
 /* ---------- photo + diagonal chamfer cut ---------- */
@@ -107,7 +115,7 @@ body{background:var(--night);color:var(--paper)}
 .m-bio{margin-left:46px;max-width:50ch}
 .m-bio p{font-size:clamp(12.5px,1.0vw,15px);line-height:1.62;margin-bottom:12px;
   text-align:justify;text-justify:inter-word;hyphens:auto;color:rgba(17,27,29,.84)}
-.zone-night .m-bio{margin-left:0}   /* Fernando: bio al mismo margen que "Estudios" */
+.zone-night .m-bio{margin-left:0;max-width:95%}   /* Fernando: bio al mismo margen que "Estudios", ancho casi completo con aire hacia la foto */
 .top-sage .m-bio{margin-left:0}   /* Sergio: bio al mismo margen que el resto del bloque */
 .zone-night .m-bio p{color:rgba(243,242,234,.92)}
 .m-bio p:last-child{margin-bottom:0}
@@ -115,7 +123,9 @@ body{background:var(--night);color:var(--paper)}
 /* ---------- credentials ---------- */
 .m-cred{padding-top:8px;border-left:1px solid rgba(35,94,110,.45);padding-left:clamp(20px,1.9vw,38px)}
 /* Sergio (sage): an invisible clone of name+role pushes "Estudios" to start exactly where the bio starts */
-.top-sage .m-cred{padding-top:0}
+/* la línea vertical sube hasta chocar y unirse con la horizontal de .equipo-head::after
+   (compensa el padding-bottom del masthead + el padding-top:40px del slot-0) */
+.top-sage .m-cred{margin-top:calc(-40px - clamp(18px,2.4vh,30px));padding-top:calc(40px + clamp(18px,2.4vh,30px))}
 .cred-spacer{visibility:hidden;display:flow-root;pointer-events:none;user-select:none}
 .cred-spacer .m-name{white-space:nowrap}
 .zone-night .m-cred{border-left-color:rgba(243,242,234,.22)}
@@ -164,7 +174,8 @@ body{background:var(--night);color:var(--paper)}
   .m-cred{grid-column:1/-1;border-left:none;padding-left:0;border-top:1px solid rgba(35,94,110,.4);padding-top:24px;margin-top:6px;
     display:grid;grid-template-columns:1fr 1fr;gap:22px 38px}
   .zone-night .m-cred{border-top-color:rgba(243,242,234,.22)}
-  .bottom-cream .m-cred::before{display:none}
+  .zone-night .cred-group,.zone-night .cred-foot{max-width:none}   /* texto al 100% en tablet/mobile */
+  .zone-night .m-cred::before,.bottom-cream .m-cred::before{display:none}
   .cred-foot{grid-column:1/-1}
   .zone-night .m-photo{order:2}.zone-night .m-main{order:1}.zone-night .m-cred{order:3}
 }
@@ -206,7 +217,7 @@ body{background:var(--night);color:var(--paper)}
   </section>
 
   <!-- NIGHT zone: Fernando -->
-  <section class="zone-night hpad" id="slot-1"></section>
+  <section class="zone-night hpad" id="slot-1" data-nav-dark></section>
 
   <!-- CREAM zone: Rosario -->
   <section class="bottom-cream hpad" id="slot-2"></section>
@@ -281,6 +292,13 @@ body{background:var(--night);color:var(--paper)}
       var slot=document.getElementById('slot-'+i);
       if(slot)slot.innerHTML=memberHTML(m,i,lang);
     });
+    /* marcador de zona oscura para el navbar sobre Rosario (slot-2 se reescribe en cada render) */
+    var cream=document.getElementById('slot-2');
+    if(cream){
+      var p=document.createElement('span');
+      p.className='nav-dark-probe';p.setAttribute('data-nav-dark','');p.setAttribute('aria-hidden','true');
+      cream.appendChild(p);
+    }
     requestAnimationFrame(function(){requestAnimationFrame(function(){page.classList.add('ready');});});
     setTimeout(function(){page.classList.add('ready');},250);
   }
