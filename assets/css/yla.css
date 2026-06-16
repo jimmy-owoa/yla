@@ -217,9 +217,9 @@ html[data-lang="en"] span.t-en,html[data-lang="en"] em.t-en{display:inline}
 .on-dark{color:var(--paper)}
 .on-dark .nav-links a,.on-dark .brand{color:var(--paper)}
 
-/* arrow bullet */
-.arw{display:inline-block;width:1.4em;height:1px;background:currentColor;position:relative;vertical-align:middle}
-.arw::after{content:"";position:absolute;right:0;top:50%;width:7px;height:7px;border-top:1px solid currentColor;border-right:1px solid currentColor;transform:translateY(-50%) rotate(45deg)}
+/* arrow bullet — long thin shaft with a connected chevron head; scales with font-size */
+.arw{display:inline-block;width:1.95em;height:1.5px;background:currentColor;position:relative;vertical-align:middle;flex:0 0 auto}
+.arw::after{content:"";position:absolute;right:-1px;top:50%;width:.5em;height:.5em;border-top:1.5px solid currentColor;border-right:1.5px solid currentColor;box-sizing:border-box;transform:translateY(-50%) rotate(45deg)}
 
 /* reduce motion */
 @media (prefers-reduced-motion:reduce){
