@@ -142,7 +142,7 @@ em,i{font-family:var(--f-serif);font-style:italic;font-weight:400}
 }
 .vrail .v-lang{
   writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);
-  display:inline-flex;flex-direction:column;align-items:center;gap:8px;
+  display:inline-flex;flex-direction:row;align-items:center;gap:8px;
   font-size:10.5px;letter-spacing:.16em;font-weight:500;
 }
 .vrail .v-lang button{opacity:.45;transition:opacity .3s;letter-spacing:.16em}

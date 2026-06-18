@@ -81,7 +81,9 @@ body{background:var(--night);color:var(--paper)}
 /* ---------- photo + diagonal chamfer cut ---------- */
 .m-photo{position:relative;aspect-ratio:3/4;align-self:stretch}
 .m-photo .frame{position:absolute;inset:0;overflow:hidden}
-.m-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(1) contrast(1.05)}
+.m-photo img{width:100%;height:150%;object-fit:cover;object-position:center top;filter:grayscale(1) contrast(1.05);
+  transform:translateY(-16%);will-change:transform;backface-visibility:hidden}
+@media (prefers-reduced-motion:reduce){.m-photo img{height:100%;transform:none}}
 /* cuts per person */
 .cut-br .frame{clip-path:polygon(0 0, 100% 0, 100% 74%, 76% 100%, 0 100%)}
 .cut-tl .frame{clip-path:polygon(24% 0, 100% 0, 100% 100%, 0 100%, 0 26%)}
@@ -313,6 +315,33 @@ body{background:var(--night);color:var(--paper)}
 
   window.addEventListener('yla:lang',render);
   render();
+})();
+
+/* ---------- parallax: la imagen se desplaza dentro de su marco a otra velocidad que el scroll ---------- */
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  var imgs=[], ticking=false;
+  function collect(){ imgs=[].slice.call(document.querySelectorAll('.m-photo .frame img')); }
+  function update(){
+    ticking=false;
+    var vh=window.innerHeight||document.documentElement.clientHeight;
+    for(var i=0;i<imgs.length;i++){
+      var img=imgs[i], r=img.parentNode.getBoundingClientRect();
+      if(r.bottom<-80||r.top>vh+80) continue;
+      /* p: 0 cuando el marco entra por abajo, 1 cuando sale por arriba */
+      var p=(vh-r.top)/(vh+r.height);
+      if(p<0)p=0; else if(p>1)p=1;
+      /* translateY es % de la ALTURA de la imagen (150%); rango seguro 0%..-33.3%.
+         usamos 0%..-32% (reposo -16%) → la imagen recorre ~48% del marco sin dejar hueco */
+      var y=-16+(0.5-p)*32;
+      img.style.transform='translateY('+y.toFixed(2)+'%)';
+    }
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(update); } }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',function(){ collect(); onScroll(); });
+  window.addEventListener('yla:lang',function(){ requestAnimationFrame(function(){ collect(); update(); }); });
+  collect(); update();
 })();
 </script>
 </body>
