@@ -79,11 +79,11 @@ body{background:var(--night);color:var(--paper)}
 .zone-night .m-photo{grid-column:2;grid-row:1/3;align-self:stretch;aspect-ratio:auto;min-height:clamp(360px,52vh,560px)}
 
 /* ---------- photo + diagonal chamfer cut ---------- */
-.m-photo{position:relative;aspect-ratio:3/4;align-self:stretch}
+.m-photo{position:relative;aspect-ratio:3/4;align-self:stretch;will-change:transform;backface-visibility:hidden}
 .m-photo .frame{position:absolute;inset:0;overflow:hidden}
-.m-photo img{width:100%;height:150%;object-fit:cover;object-position:center top;filter:grayscale(1) contrast(1.05);
-  transform:translateY(-16%);will-change:transform;backface-visibility:hidden}
-@media (prefers-reduced-motion:reduce){.m-photo img{height:100%;transform:none}}
+.m-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(1) contrast(1.05);
+  backface-visibility:hidden}
+@media (prefers-reduced-motion:reduce){.m-photo{transform:none!important}}
 /* cuts per person */
 .cut-br .frame{clip-path:polygon(0 0, 100% 0, 100% 74%, 76% 100%, 0 100%)}
 .cut-tl .frame{clip-path:polygon(24% 0, 100% 0, 100% 100%, 0 100%, 0 26%)}
@@ -317,24 +317,23 @@ body{background:var(--night);color:var(--paper)}
   render();
 })();
 
-/* ---------- parallax: la imagen se desplaza dentro de su marco a otra velocidad que el scroll ---------- */
+/* ---------- parallax: los bloques de foto se desplazan a otra velocidad que el scroll ---------- */
 (function(){
   if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
-  var imgs=[], ticking=false;
-  function collect(){ imgs=[].slice.call(document.querySelectorAll('.m-photo .frame img')); }
+  var blocks=[], ticking=false;
+  function collect(){ blocks=[].slice.call(document.querySelectorAll('.m-photo')); }
   function update(){
     ticking=false;
     var vh=window.innerHeight||document.documentElement.clientHeight;
-    for(var i=0;i<imgs.length;i++){
-      var img=imgs[i], r=img.parentNode.getBoundingClientRect();
+    for(var i=0;i<blocks.length;i++){
+      var el=blocks[i], r=el.getBoundingClientRect();
       if(r.bottom<-80||r.top>vh+80) continue;
-      /* p: 0 cuando el marco entra por abajo, 1 cuando sale por arriba */
+      /* p: 0 cuando el bloque entra por abajo, 1 cuando sale por arriba */
       var p=(vh-r.top)/(vh+r.height);
       if(p<0)p=0; else if(p>1)p=1;
-      /* translateY es % de la ALTURA de la imagen (150%); rango seguro 0%..-33.3%.
-         usamos 0%..-32% (reposo -16%) → la imagen recorre ~48% del marco sin dejar hueco */
-      var y=-16+(0.5-p)*32;
-      img.style.transform='translateY('+y.toFixed(2)+'%)';
+      /* el bloque completo se desplaza ±65px respecto al scroll */
+      var y=(0.5-p)*130;
+      el.style.transform='translateY('+y.toFixed(1)+'px)';
     }
   }
   function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(update); } }

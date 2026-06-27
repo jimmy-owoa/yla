@@ -28,13 +28,26 @@ body{background:var(--petrol);color:var(--paper)}
 @keyframes cup{to{transform:translateY(0)}}
 .c-head em{color:var(--cream)}
 .c-slash{font-family:var(--f-serif);font-style:italic;font-size:clamp(26px,3vw,40px);color:rgba(243,242,234,.55);margin:clamp(18px,3vh,30px) 0 clamp(14px,2.4vh,22px)}
-.c-addr{font-size:clamp(13px,1.1vw,15.5px);line-height:1.95;letter-spacing:.04em;color:rgba(243,242,234,.86)}
+.c-addr{font-size:clamp(13px,1.1vw,15.5px);line-height:1.55;letter-spacing:.04em;color:rgba(243,242,234,.86);font-style:normal}
+.c-addr strong{font-weight:400}
 .c-addr .mail{display:block;margin-top:18px;font-weight:500;letter-spacing:.02em;color:var(--cream)}
 
+.c-head-mob{display:none}
 @media (max-width:860px){
   .c-grid{grid-template-columns:1fr;gap:30px}
-  .c-photo{aspect-ratio:1.36/1;order:2}
-  .c-text{order:1;max-width:none;text-align:center}
+  .c-text{order:1;max-width:none;text-align:left}
+  /* swap the 4-line desktop heading for the 2-line mobile one */
+  .c-head:not(.c-head-mob){display:none!important}
+  .c-head-mob.t-es{display:block}
+  html[data-lang="en"] .c-head-mob.t-es{display:none}
+  html[data-lang="en"] .c-head-mob.t-en{display:block}
+  .c-head-mob{font-size:clamp(28px,7.4vw,44px)}
+  /* photo: portrait frame, image rotated -90° so it points up and fills */
+  .c-photo{order:2;aspect-ratio:954/1300}
+  .c-photo .inner{position:absolute;top:50%;left:50%;
+    width:136.3%;aspect-ratio:1.36;height:auto;
+    transform:translate(-50%,-50%) rotate(-90deg)}
+  .c-photo img{object-fit:cover}
 }
 </style>
 </head>
@@ -60,6 +73,8 @@ body{background:var(--petrol);color:var(--paper)}
     <div class="c-text">
       <h1 class="c-head t-es"><span class="line"><span>Estamos</span></span><span class="line"><span>cuando <em>el</em></span></span><span class="line"><span><em>cliente lo</em></span></span><span class="line"><span><em>necesita.</em></span></span></h1>
       <h1 class="c-head t-en"><span class="line"><span>We're here</span></span><span class="line"><span>when <em>the</em></span></span><span class="line"><span><em>client</em></span></span><span class="line"><span><em>needs us.</em></span></span></h1>
+      <h1 class="c-head c-head-mob t-es"><span class="line"><span>Estamos cuando</span></span><span class="line"><span><em>el cliente lo necesita.</em></span></span></h1>
+      <h1 class="c-head c-head-mob t-en"><span class="line"><span>We're here when</span></span><span class="line"><span><em>the client needs us.</em></span></span></h1>
       <p class="c-slash">/</p>
       <address class="c-addr">
         <strong>El Bosque Norte 0211<br>

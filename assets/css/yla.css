@@ -115,19 +115,19 @@ em,i{font-family:var(--f-serif);font-style:italic;font-weight:400}
   display:grid;grid-template-columns:repeat(3,1fr);gap:3px;
   width:22px;height:22px;margin-top:2px;
 }
-.dots span{width:4px;height:4px;border-radius:50%;background:currentColor;transition:transform .4s var(--ease),opacity .4s}
+.dots span{width:4px;height:4px;border-radius:50%;background:#235e6e;transition:transform .4s var(--ease),opacity .4s}
 .dots:hover span{opacity:.55}
 .dots:hover span:nth-child(5){opacity:1;transform:scale(1.5)}
 
 /* language toggle (rail) */
 .lang{
   display:inline-flex;align-items:center;gap:7px;
-  font-size:11px;font-weight:500;letter-spacing:.14em;
+  font-size:14px;font-weight:500;letter-spacing:.14em;
 }
 .lang button{letter-spacing:.14em;opacity:.45;transition:opacity .3s,font-weight .3s}
 .lang button:hover{opacity:1;font-weight:700}
 .lang button.on{opacity:1}
-.lang .div{width:13px;height:1px;background:currentColor;opacity:.5;transform:rotate(-50deg)}
+.lang .div{width:13px;height:1px;background:#235e6e;opacity:1;transform:rotate(50deg)}
 
 /* ---------- Vertical rail (dark strip: menu dots + email + esp/ing) ---------- */
 .vrail{
@@ -167,7 +167,7 @@ html[data-lang="en"] span.t-en,html[data-lang="en"] em.t-en{display:inline}
 .menu{
   position:fixed;inset:0;z-index:200;background:var(--night);color:var(--paper);
   display:flex;flex-direction:column;
-  padding:20px var(--pad) var(--pad);
+  padding:20px var(--pad) clamp(120px,16vh,220px);
   clip-path:inset(0 0 100% 0);
   transition:clip-path .8s var(--ease);
   pointer-events:none;
@@ -176,7 +176,11 @@ html[data-lang="en"] span.t-en,html[data-lang="en"] em.t-en{display:inline}
 .menu .menu-top{display:flex;align-items:flex-start;justify-content:space-between}
 .menu .brand{color:var(--paper)}
 .menu .close{
-  width:30px;height:30px;position:relative;color:var(--paper);
+  width:30px;height:30px;position:fixed;top:18px;right:calc((var(--rail) - 30px)/2);
+  color:#235e6e;z-index:5;
+}
+@media (max-width:980px){
+  .menu .close{right:calc(var(--pad) - 4px)}
 }
 .menu .close::before,.menu .close::after{
   content:"";position:absolute;top:50%;left:0;width:100%;height:1.5px;background:currentColor;
@@ -185,9 +189,9 @@ html[data-lang="en"] span.t-en,html[data-lang="en"] em.t-en{display:inline}
 .menu .close::after{transform:rotate(-45deg)}
 .menu .menu-body{
   flex:1;display:flex;flex-direction:column;justify-content:center;
-  width:100%;
+  width:100%;padding-inline:clamp(32px,7vw,130px);
 }
-.menu nav{display:flex;flex-direction:column;gap:clamp(10px,2.1vh,26px)}
+.menu nav{display:flex;flex-direction:column;gap:clamp(28px,5vh,62px)}
 .menu nav a{
   font-weight:500;font-size:clamp(28px,3.4vw,46px);line-height:1.04;letter-spacing:-.005em;
   width:max-content;position:relative;
@@ -200,20 +204,26 @@ html[data-lang="en"] span.t-en,html[data-lang="en"] em.t-en{display:inline}
 .menu.open nav a:nth-child(3){transition-delay:.34s}
 .menu.open nav a:nth-child(4){transition-delay:.42s}
 .menu nav a:hover{color:var(--sage)}
-.menu nav a.cur .mk-underline{opacity:1}
-.menu nav a .mk-underline{
-  position:absolute;left:2px;bottom:-2px;height:14px;opacity:0;color:var(--sage);
-  transition:opacity .4s;
+.menu nav a::after{
+  content:"\00005C";
+  position:absolute;left:0;top:100%;
+  color:#235e6e;font-size:1em;line-height:1;font-weight:400;
+  opacity:0;transform:translateY(-6px);
+  transition:opacity .35s var(--ease),transform .35s var(--ease);
+  pointer-events:none;
 }
+.menu nav a:hover::after{opacity:1;transform:translateY(0)}
+.menu nav a .mk-underline{display:none}
 .menu .menu-foot{
   display:flex;align-items:flex-end;justify-content:space-between;gap:24px;
+  padding-inline:clamp(32px,7vw,130px);
   opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease) .5s,transform .6s var(--ease) .5s;
 }
 .menu.open .menu-foot{opacity:1;transform:none}
 .menu .menu-foot .addr{
-  text-align:right;font-size:13px;line-height:1.7;letter-spacing:.04em;color:rgba(243,242,234,.7);
+  text-align:right;font-size:clamp(15px,1.4vw,18px);line-height:1.7;letter-spacing:.04em;color:#235e6e;
 }
-.menu .menu-foot .addr a{color:var(--sage)}
+.menu .menu-foot .addr a{color:#235e6e;display:inline-block;padding-top:12px}
 .menu .menu-foot .lang{color:var(--paper)}
 
 /* ---------- Generic page chrome on dark ---------- */
