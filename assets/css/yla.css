@@ -85,12 +85,13 @@ em,i{font-family:var(--f-serif);font-style:italic;font-weight:400}
   font-size:8.5px;letter-spacing:.235em;opacity:.78;
   font-weight:500;
 }
+.brand .brand-logo{height:57px;width:auto;display:block}
 
 /* ---------- Top bar ---------- */
 .topbar{
   position:fixed;inset:0 0 auto 0;z-index:60;
   display:flex;align-items:flex-start;justify-content:space-between;
-  padding:var(--pad);
+  padding:20px var(--pad) var(--pad);
   pointer-events:none;
 }
 .topbar > *{pointer-events:auto}
@@ -123,7 +124,8 @@ em,i{font-family:var(--f-serif);font-style:italic;font-weight:400}
   display:inline-flex;align-items:center;gap:7px;
   font-size:11px;font-weight:500;letter-spacing:.14em;
 }
-.lang button{letter-spacing:.14em;opacity:.45;transition:opacity .3s}
+.lang button{letter-spacing:.14em;opacity:.45;transition:opacity .3s,font-weight .3s}
+.lang button:hover{opacity:1;font-weight:700}
 .lang button.on{opacity:1}
 .lang .div{width:13px;height:1px;background:currentColor;opacity:.5;transform:rotate(-50deg)}
 
@@ -132,7 +134,7 @@ em,i{font-family:var(--f-serif);font-style:italic;font-weight:400}
   position:fixed;top:0;right:0;bottom:0;width:var(--rail);z-index:55;
   background:var(--night);color:var(--paper);
   display:flex;flex-direction:column;align-items:center;justify-content:space-between;
-  padding:var(--pad) 0;
+  padding:20px 0;
 }
 .vrail .dots{color:var(--paper);margin-top:2px}
 .vrail .v-mail{
@@ -145,7 +147,8 @@ em,i{font-family:var(--f-serif);font-style:italic;font-weight:400}
   display:inline-flex;flex-direction:row;align-items:center;gap:8px;
   font-size:10.5px;letter-spacing:.16em;font-weight:500;
 }
-.vrail .v-lang button{opacity:.45;transition:opacity .3s;letter-spacing:.16em}
+.vrail .v-lang button{opacity:.45;transition:opacity .3s,font-weight .3s;letter-spacing:.16em}
+.vrail .v-lang button:hover{opacity:1;font-weight:700}
 .vrail .v-lang button.on{opacity:1}
 .vrail .v-lang .div{height:13px;width:1px;background:currentColor;opacity:.55;transform:rotate(-50deg);margin:2px 0}
 
@@ -164,7 +167,7 @@ html[data-lang="en"] span.t-en,html[data-lang="en"] em.t-en{display:inline}
 .menu{
   position:fixed;inset:0;z-index:200;background:var(--night);color:var(--paper);
   display:flex;flex-direction:column;
-  padding:var(--pad);
+  padding:20px var(--pad) var(--pad);
   clip-path:inset(0 0 100% 0);
   transition:clip-path .8s var(--ease);
   pointer-events:none;
