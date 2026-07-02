@@ -107,12 +107,18 @@ body{background:var(--night);color:var(--paper)}
 .top-sage .m-name-row,
 .bottom-cream .m-name-row{margin-left:calc(-3.4 * 17px - 16px)}
 .bottom-cream .m-name-row .arw{color:var(--ink)}
-.m-name{font-weight:600;font-size:clamp(27px,2.7vw,42px);letter-spacing:-.015em;line-height:1.0}
+.m-name{font-weight:600;font-size:clamp(27px,2.7vw,42px);letter-spacing:.05em;line-height:1.0}
 .top-sage .m-name{color:var(--ink)}      /* dark name on the sage zone (Sergio) */
 .m-role{font-family:var(--f-serif);font-style:italic;font-size:clamp(17px,1.45vw,23px);
-  line-height:1.15;margin:0 0 clamp(20px,2.7vh,32px) 46px;color:var(--ink-soft)}
+  line-height:1.15;margin:0 0 10px 46px;color:var(--ink-soft)}
 .zone-night .m-role{color:var(--sage);margin-left:0}   /* Fernando: rol al mismo margen que "Estudios" */
 .top-sage .m-role{margin-left:0}   /* Sergio: rol al mismo margen que el resto del bloque */
+
+/* correo visible bajo el nombre/rol (antes iba último, en cred-foot) */
+.m-mail{display:inline-block;font-size:clamp(12px,0.95vw,14px);font-weight:600;letter-spacing:.08em;
+  color:var(--petrol-deep);text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(28,79,93,.45);
+  margin:0 0 clamp(20px,2.7vh,32px)}
+.zone-night .m-mail{color:var(--sage-soft);text-decoration-color:rgba(144,173,171,.5)}
 
 .m-bio{margin-left:46px;max-width:50ch}
 .m-bio p{font-size:clamp(12.5px,1.0vw,15px);line-height:1.62;margin-bottom:12px;
@@ -128,8 +134,9 @@ body{background:var(--night);color:var(--paper)}
 /* la línea vertical sube hasta chocar y unirse con la horizontal de .equipo-head::after
    (compensa el padding-bottom del masthead + el padding-top:40px del slot-0) */
 .top-sage .m-cred{margin-top:calc(-40px - clamp(18px,2.4vh,30px));padding-top:calc(40px + clamp(18px,2.4vh,30px))}
-.cred-spacer{visibility:hidden;display:flow-root;pointer-events:none;user-select:none}
-.cred-spacer .m-name{white-space:nowrap}
+/* width:0 — el nombre nowrap del clon no debe empujar el ancho mínimo de la columna de creds */
+.cred-spacer{visibility:hidden;display:flow-root;pointer-events:none;user-select:none;width:0}
+.cred-spacer .m-name,.cred-spacer .m-role{white-space:nowrap}
 .zone-night .m-cred{border-left-color:rgba(243,242,234,.22)}
 .bottom-cream .m-cred{border-left:none;padding-left:0;border-top:1px solid rgba(35,94,110,.4);padding-top:clamp(18px,2.4vh,28px);margin-top:6px}
 .cred-group{margin-bottom:clamp(16px,2.2vh,24px)}
@@ -183,6 +190,15 @@ body{background:var(--night);color:var(--paper)}
   .zone-night .m-cred::before,.bottom-cream .m-cred::before{display:none}
   .cred-foot{grid-column:1/-1}
   .zone-night .m-photo{order:2}.zone-night .m-main{order:1}.zone-night .m-cred{order:3}
+  /* Sergio en tablet: sin stretch la foto conserva 3/4 (con stretch, el aspect-ratio
+     transfería la altura de la fila al ancho y la foto tapaba la bio) */
+  .m-photo{align-self:start}
+  .top-sage .member-inner{column-gap:30px}
+  /* sin espacio para la flecha colgante ni el clon de alineación de desktop */
+  .zone-night .m-name-row,.top-sage .m-name-row,.bottom-cream .m-name-row{margin-left:0}
+  .m-name-row .arw{display:none}
+  .cred-spacer{display:none}
+  .top-sage .m-cred{margin-top:6px;padding-top:24px}
 }
 @media (max-width:680px){
   :root{--cut:34px}
@@ -192,7 +208,12 @@ body{background:var(--night);color:var(--paper)}
   .zone-night .m-photo,.m-photo{order:1}
   .zone-night .m-main,.m-main{order:2}
   .zone-night .m-cred,.m-cred{order:3}
-  .m-photo{aspect-ratio:3/3.5;max-height:62vh}
+  /* Safari iOS: con la foto sola en su fila, aspect-ratio + align-self:stretch + frame absoluto
+     colapsa .m-photo a alto 0 (la foto no se ve). El alto lo da la propia <img> en flujo normal. */
+  .m-photo{aspect-ratio:auto;max-height:none;align-self:auto}
+  .m-photo .frame{position:relative;inset:auto}
+  .m-photo img{display:block;height:auto;aspect-ratio:3/3.5;max-height:62vh}
+  .zone-night .m-photo{min-height:0}
   /* reset de colocaciones de grid por-miembro (Fernando/Rosario) para que apilen en 1 columna */
   .zone-night .m-photo,.zone-night .m-main,.zone-night .m-cred,
   .bottom-cream .m-photo,.bottom-cream .m-main,.bottom-cream .m-cred{grid-column:auto;grid-row:auto}
@@ -269,8 +290,8 @@ body{background:var(--night);color:var(--paper)}
       g.items.forEach(function(it){h+='<li><span class="arw"></span><span>'+it+'</span></li>';});
       h+='</ul></div>';
     });
-    var iL=lang==='en'?'Languages':'Idiomas', cL=lang==='en'?'Contact':'Contacto';
-    h+='<div class="cred-foot"><b>'+iL+'</b> / '+m['lang_'+lang]+'<br><b>'+cL+'</b> / <a href="mailto:'+m.email+'">'+m.email+'</a></div>';
+    var iL=lang==='en'?'Languages':'Idiomas';
+    h+='<div class="cred-foot"><b>'+iL+'</b> / '+m['lang_'+lang]+'</div>';
     return h;
   }
 
@@ -281,6 +302,7 @@ body{background:var(--night);color:var(--paper)}
       '<div class="cred-spacer" aria-hidden="true">'+
         '<div class="m-name-row"><span class="arw"></span><h2 class="m-name">'+m.name+'</h2></div>'+
         '<p class="m-role">'+m['role_'+lang]+'</p>'+
+        '<span class="m-mail">'+m.email+'</span>'+
       '</div>':'';
     return ''+
       '<article class="member '+CUT[i]+'" data-screen-label="'+m.name+'">'+
@@ -289,6 +311,7 @@ body{background:var(--night);color:var(--paper)}
           '<div class="m-main">'+
             '<div class="m-name-row"><span class="arw"></span><h2 class="m-name">'+m.name+'</h2></div>'+
             '<p class="m-role">'+m['role_'+lang]+'</p>'+
+            '<a class="m-mail" href="mailto:'+m.email+'">'+m.email+'</a>'+
             '<div class="m-bio">'+m['bio_'+lang].map(function(p){return '<p>'+p+'</p>';}).join('')+'</div>'+
           '</div>'+
           '<aside class="m-cred">'+credSpacer+credHTML(m,lang)+'</aside>'+
