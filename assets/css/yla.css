@@ -72,20 +72,13 @@ em,i{font-family:var(--f-serif);font-style:italic;font-weight:400}
 .mk polygon{fill:currentColor}
 
 .brand{display:flex;align-items:center;gap:14px;color:var(--ink)}
-.brand .mk-wrap{height:30px;display:flex;align-items:center}
-.brand .wordmark{
-  font-weight:500;
-  line-height:1.06;
-  letter-spacing:.02em;
-}
-.brand .wordmark .w1{
-  font-size:13px;letter-spacing:.16em;
-}
-.brand .wordmark .w2{
-  font-size:8.5px;letter-spacing:.235em;opacity:.78;
-  font-weight:500;
-}
-.brand .brand-logo{height:57px;width:auto;display:block}
+/* logo horizontal en dos variantes: logo.svg (oscuro) por defecto,
+   logo-blanco.svg cuando el topbar pasa sobre fondo oscuro (.on-dark)
+   o en contextos siempre oscuros (overlay del menú, páginas que lo pidan) */
+.brand .brand-logo{display:block;height:32px;width:auto}
+.brand .logo-light{display:none}
+.topbar.on-dark .brand .logo-dark{display:none}
+.topbar.on-dark .brand .logo-light{display:block}
 
 /* ---------- Top bar ---------- */
 .topbar{
@@ -249,4 +242,5 @@ html[data-lang="en"] span.t-en,html[data-lang="en"] em.t-en{display:inline}
   .vrail{display:none}
   .nav-links{display:none}
   .dots.mob-only{display:grid;color:inherit}
+  .brand .brand-logo{height:26px}
 }
