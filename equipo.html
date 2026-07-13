@@ -83,6 +83,11 @@ body{background:var(--night);color:var(--paper)}
 .m-photo .frame{position:absolute;inset:0;overflow:hidden}
 .m-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(1) contrast(1.05);
   backface-visibility:hidden}
+/* foto color superpuesta al hacer hover — desactivada por ahora
+   (reactivar: descomentar esto y el <img class="ph-color"> en memberHTML)
+.m-photo .ph-color{position:absolute;inset:0;filter:none;opacity:0;transition:opacity .5s var(--ease)}
+.m-photo:hover .ph-color{opacity:1}
+*/
 @media (prefers-reduced-motion:reduce){.m-photo{transform:none!important}}
 /* cuts per person */
 .cut-br .frame{clip-path:polygon(0 0, 100% 0, 100% 74%, 76% 100%, 0 100%)}
@@ -307,6 +312,8 @@ body{background:var(--night);color:var(--paper)}
     return ''+
       '<article class="member '+CUT[i]+'" data-screen-label="'+m.name+'">'+
         '<div class="member-inner">'+
+          /* hover a color desactivado por ahora: para reactivarlo, añadir de nuevo
+             <img class="ph-color" src="'+m.photo_color+'" alt="" aria-hidden="true"> junto a la img */
           '<div class="m-photo">'+accent+'<div class="frame"><img src="'+m.photo+'" alt="'+m.name+'"></div></div>'+
           '<div class="m-main">'+
             '<div class="m-name-row"><span class="arw"></span><h2 class="m-name">'+m.name+'</h2></div>'+
