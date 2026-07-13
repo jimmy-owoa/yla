@@ -39,7 +39,10 @@
 .phrase.show .line:nth-child(3) > span{transition-delay:.19s}
 .phrase.show .line:nth-child(4) > span{transition-delay:.26s}
 .phrase.show .line:nth-child(5) > span{transition-delay:.33s}
+.phrase.show .line:nth-child(6) > span{transition-delay:.4s}
 .phrase h1 em{color:var(--ink-soft)}
+/* frase larga: cuerpo algo menor y líneas más anchas para que quepa completa */
+.phrase.p-long h1{font-size:clamp(26px,3.7vw,56px);max-width:28ch}
 
 /* advance control — thin chevron only */
 .advance{display:flex;align-items:center;flex:0 0 auto}
@@ -184,6 +187,7 @@ html[data-lang="en"] .col .col-label .ll.t-en{display:block}
   .hero-right{display:none}
   .phrases{position:relative;flex:0 0 auto;width:100%}
   .phrase h1{font-size:clamp(38px,11vw,52px);max-width:12ch;line-height:1.05}
+  .phrase.p-long h1{font-size:clamp(22px,6.8vw,32px);max-width:24ch}
   /* down-pointing chevron */
   .advance{align-self:flex-start}
   .adv-btn{justify-content:center}
@@ -223,24 +227,24 @@ html[data-lang="en"] .col .col-label .ll.t-en{display:block}
   <div class="hero-left">
     <div class="phrases">
       <!-- 1 -->
-      <div class="phrase show">
-        <h1 class="t-es"><span class="line"><span>Boutique de</span></span><span class="line"><span>litigios y</span></span><span class="line"><span>arbitrajes de</span></span><span class="line"><span>alto impacto y</span></span><span class="line"><span>complejidad, <em>con</em></span></span><span class="line"><span><em>un sello propio.</em></span></span></h1>
-        <h1 class="t-en"><span class="line"><span>A boutique for</span></span><span class="line"><span>high-complexity</span></span><span class="line"><span>litigation &amp;</span></span><span class="line"><span>arbitration, <em>with a</em></span></span><span class="line"><span><em>signature of its own.</em></span></span></h1>
+      <div class="phrase p-long show">
+        <h1 class="t-es"><span class="line"><span>Somos una boutique de</span></span><span class="line"><span>litigios y arbitrajes</span></span><span class="line"><span>de alta complejidad,</span></span><span class="line"><span>con un sello propio:</span></span><span class="line"><span><em>negociamos con estrategia</em></span></span><span class="line"><span><em>y litigamos con convicción.</em></span></span></h1>
+        <h1 class="t-en"><span class="line"><span>We are a boutique litigation</span></span><span class="line"><span>and arbitration firm focused</span></span><span class="line"><span>on high-complexity matters,</span></span><span class="line"><span>with a hallmark of our own:</span></span><span class="line"><span><em>we negotiate strategically</em></span></span><span class="line"><span><em>and litigate with conviction.</em></span></span></h1>
       </div>
       <!-- 2 -->
       <div class="phrase">
-        <h1 class="t-es"><span class="line"><span>Negociamos</span></span><span class="line"><span>estratégicamente</span></span><span class="line"><span><em>y litigamos con</em></span></span><span class="line"><span><em>convicción.</em></span></span></h1>
-        <h1 class="t-en"><span class="line"><span>We negotiate with</span></span><span class="line"><span>strategy <em>and litigate</em></span></span><span class="line"><span><em>with conviction.</em></span></span></h1>
+        <h1 class="t-es"><span class="line"><span>Sabemos que la</span></span><span class="line"><span>excelencia nunca</span></span><span class="line"><span>es casualidad <em>y por</em></span></span><span class="line"><span><em>eso la buscamos</em></span></span><span class="line"><span><em>implacablemente.</em></span></span></h1>
+        <h1 class="t-en"><span class="line"><span>We know that</span></span><span class="line"><span>excellence is never</span></span><span class="line"><span>a matter of chance,</span></span><span class="line"><span><em>which is why we</em></span></span><span class="line"><span><em>pursue it relentlessly.</em></span></span></h1>
       </div>
       <!-- 3 -->
       <div class="phrase">
-        <h1 class="t-es"><span class="line"><span>Sabemos que la</span></span><span class="line"><span>excelencia nunca</span></span><span class="line"><span>es casualidad <em>y por</em></span></span><span class="line"><span><em>eso la buscamos de</em></span></span><span class="line"><span><em>manera implacable.</em></span></span></h1>
-        <h1 class="t-en"><span class="line"><span>We know excellence</span></span><span class="line"><span>is never an accident,</span></span><span class="line"><span><em>and so we pursue</em></span></span><span class="line"><span><em>it relentlessly.</em></span></span></h1>
+        <h1 class="t-es"><span class="line"><span>Estamos cuando el</span></span><span class="line"><span>cliente <em>lo necesita.</em></span></span></h1>
+        <h1 class="t-en"><span class="line"><span>We are there whenever</span></span><span class="line"><span>our clients <em>need us.</em></span></span></h1>
       </div>
       <!-- 4 -->
       <div class="phrase">
-        <h1 class="t-es"><span class="line"><span>Estamos cuando el</span></span><span class="line"><span>cliente lo necesita.</span></span><span class="line"><span>La cercanía no es</span></span><span class="line"><span>un adicional, <em>es parte</em></span></span><span class="line"><span><em>de cómo entendemos</em></span></span><span class="line"><span><em>lo que hacemos.</em></span></span></h1>
-        <h1 class="t-en"><span class="line"><span>Closeness is not</span></span><span class="line"><span>an added service,</span></span><span class="line"><span><em>it is part of how we</em></span></span><span class="line"><span><em>understand our work.</em></span></span></h1>
+        <h1 class="t-es"><span class="line"><span>La cercanía no es</span></span><span class="line"><span>un servicio</span></span><span class="line"><span>adicional, <em>es parte</em></span></span><span class="line"><span><em>de cómo entendemos</em></span></span><span class="line"><span><em>lo que hacemos.</em></span></span></h1>
+        <h1 class="t-en"><span class="line"><span>Being close to our</span></span><span class="line"><span>clients is not an</span></span><span class="line"><span>added service — <em>it is</em></span></span><span class="line"><span><em>part of how we</em></span></span><span class="line"><span><em>understand our work.</em></span></span></h1>
       </div>
     </div>
 
