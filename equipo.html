@@ -16,7 +16,8 @@ body{background:var(--night);color:var(--paper)}
 .hpad{padding-left:clamp(28px,5vw,88px);padding-right:clamp(28px,5vw,88px)}
 
 /* ---------- SAGE top zone : masthead + Sergio ---------- */
-:root{--sage-drop:30vw;--sage-gap:48px;--sage-break:68%}   /* depth/steepness of the angled break, clearance below content, where the break starts */
+/* drop/(100% - break) mantiene la pendiente original de 30vw/32% ≈ 0.94 */
+:root{--sage-drop:22vw;--sage-gap:48px;--sage-break:76.5%}   /* depth/steepness of the angled break, clearance below content, where the break starts */
 .top-sage{position:relative;background:none;padding-bottom:calc(var(--sage-drop) + var(--sage-gap));z-index:2}
 .top-sage::before{content:"";position:absolute;inset:0;background:var(--sage);z-index:0;
   /* bottom edge: flat from left to the break point, then a steep diagonal down to the right corner */
