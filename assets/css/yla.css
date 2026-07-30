@@ -16,8 +16,8 @@
 }
 @font-face{
   font-family:"Gambetta";
-  src:url("../fonts/Gambetta-Italic.otf") format("opentype");
-  font-weight:400; font-style:italic; font-display:swap;
+  src:url("../fonts/Gambetta-Regular.otf") format("opentype");
+  font-weight:400; font-style:normal; font-display:swap;
 }
 
 /* ---------- Tokens ---------- */
@@ -62,10 +62,10 @@ body{
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
 button{font-family:inherit;color:inherit;background:none;border:none;cursor:pointer}
-em,i{font-family:var(--f-serif);font-style:italic;font-weight:400}
+em,i{font-family:var(--f-serif);font-style:normal;font-weight:400}
 
-/* serif italics should optically align with the display caps */
-.serif{font-family:var(--f-serif);font-style:italic;font-weight:400}
+/* serif accents should optically align with the display caps */
+.serif{font-family:var(--f-serif);font-style:normal;font-weight:400}
 
 /* ---------- Brand mark ---------- */
 .mk{width:auto;height:100%;display:block}
