@@ -117,7 +117,7 @@ body{background:var(--night);color:var(--paper)}
 .bottom-cream .m-name-row .arw{color:var(--ink)}
 .m-name{font-weight:600;font-size:clamp(27px,2.7vw,42px);letter-spacing:.05em;line-height:1.0}
 .top-sage .m-name{color:var(--ink)}      /* dark name on the sage zone (Sergio) */
-.m-role{font-family:var(--f-serif);font-style:normal;font-size:clamp(17px,1.45vw,23px);
+.m-role{font-family:var(--f-display);font-weight:500;font-size:clamp(17px,1.45vw,23px);
   line-height:1.15;margin:0 0 10px 46px;color:var(--ink-soft)}
 .zone-night .m-role{color:var(--sage);margin-left:0}   /* Fernando: rol al mismo margen que "Estudios" */
 .top-sage .m-role{margin-left:0}   /* Sergio: rol al mismo margen que el resto del bloque */
@@ -129,7 +129,7 @@ body{background:var(--night);color:var(--paper)}
 .zone-night .m-mail{color:var(--sage-soft);text-decoration-color:rgba(144,173,171,.5)}
 
 .m-bio{margin-left:46px;max-width:50ch}
-.m-bio p{font-size:clamp(12.5px,1.0vw,15px);line-height:1.62;margin-bottom:12px;
+.m-bio p{font-weight:500;font-size:clamp(12.5px,1.0vw,15px);line-height:1.62;margin-bottom:12px;
   text-align:justify;text-justify:inter-word;hyphens:auto;color:rgba(17,27,29,.84)}
 .zone-night .m-bio{margin-left:0;max-width:95%}   /* Fernando: bio al mismo margen que "Estudios", ancho casi completo con aire hacia la foto */
 .top-sage .m-bio{margin-left:0}   /* Sergio: bio al mismo margen que el resto del bloque */
@@ -151,12 +151,12 @@ body{background:var(--night);color:var(--paper)}
 .cred-group h4{font-size:10.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--petrol);margin-bottom:11px}
 .zone-night .cred-group h4{color:var(--sage-soft)}
 .cred-group ul{list-style:none;display:flex;flex-direction:column;gap:9px}
-.cred-group li{display:flex;align-items:flex-start;gap:11px;font-size:11.5px;line-height:1.46;color:rgba(17,27,29,.72);text-wrap:pretty}
+.cred-group li{display:flex;align-items:flex-start;gap:11px;font-weight:500;font-size:11.5px;line-height:1.46;color:rgba(17,27,29,.72);text-wrap:pretty}
 .zone-night .cred-group li{color:rgba(243,242,234,.8)}
 .cred-group li .arw{font-size:9px;width:2em;height:2em;margin-top:1px;color:var(--petrol);opacity:.9}
 .zone-night .cred-group li .arw{color:var(--sage-soft)}
 
-.cred-foot{margin-top:clamp(15px,2vh,22px);font-size:11.5px;letter-spacing:.02em;line-height:1.95;color:rgba(17,27,29,.74)}
+.cred-foot{margin-top:clamp(15px,2vh,22px);font-weight:500;font-size:11.5px;letter-spacing:.02em;line-height:1.95;color:rgba(17,27,29,.74)}
 .zone-night .cred-foot{color:rgba(243,242,234,.8)}
 .cred-foot b{font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:10px;color:var(--petrol)}
 .zone-night .cred-foot b{color:var(--sage-soft)}
@@ -227,6 +227,13 @@ body{background:var(--night);color:var(--paper)}
   .bottom-cream .m-photo,.bottom-cream .m-main,.bottom-cream .m-cred{grid-column:auto;grid-row:auto}
   .bottom-cream .m-photo{margin-top:0;min-height:0}
   .bottom-cream .m-main{padding-top:0}
+  /* mobile: texto un poco más grande para legibilidad */
+  .m-bio p{font-size:15px;line-height:1.65}
+  .cred-group li{font-size:13px}
+  .cred-foot{font-size:13px}
+  .cred-group h4{font-size:11.5px}
+  .m-role{font-size:19px}
+  .m-mail{font-size:13px}
 }
 </style>
 </head>

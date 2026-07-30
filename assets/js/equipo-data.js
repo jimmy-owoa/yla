@@ -24,9 +24,9 @@ var MEMBERS=[
     cred_es:[
       {h:"Estudios",items:[
         "LL.M. Northwestern Pritzker School of Law, Chicago. Graduado con Honores.",
-        "Legal English and Foundations (LEAF). Northwestern Pritzker Law School, Chicago.",
+        "Legal English and Foundations (LEAF). Northwestern Pritzker School of Law, Chicago.",
         "Título de Abogado otorgado por la Excma. Corte Suprema.",
-        "Pontificia Universidad Católica de Chile, Licenciado en Derecho graduado con dos votos de distinción."
+        "Pontificia Universidad Católica de Chile, Licenciado en Derecho."
       ]},
       {h:"Academia",items:[
         "Durante más de ocho años se desempeñó como Profesor Asistente de Derecho Procesal en la Pontificia Universidad Católica de Chile."
@@ -58,7 +58,7 @@ var MEMBERS=[
     role_en:"Associate",
     photo:"assets/img/fernando_neg.jpg",
     photo_color:"assets/img/fernando.jpg",
-    email:"folivares@yla.cl",
+    email:"folivarez@yla.cl",
     lang_es:"Español e Inglés",
     lang_en:"Spanish and English",
     bio_es:[
@@ -74,7 +74,7 @@ var MEMBERS=[
         "Curso “Buenas Prácticas en Libre Competencia”. Pontificia Universidad Católica de Chile.",
         "Curso “El abogado del futuro: Legaltech y la transformación digital del Derecho”. Universidad Austral.",
         "Taller práctico “IA para abogados, de herramienta básica a aliado estratégico”. Pontificia Universidad Católica de Chile.",
-        "Universidad de Chile, Licenciado en Derecho graduado con dos votos de distinción."
+        "Universidad de Chile, Licenciado en Derecho."
       ]},
       {h:"Academia",items:[
         "Universidad Diego Portales. Ayudante Senior del departamento de Derecho Procesal.",
