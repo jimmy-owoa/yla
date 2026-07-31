@@ -175,8 +175,10 @@ html[data-lang="en"] span.t-en,html[data-lang="en"] em.t-en{display:inline}
 .menu > *{position:relative;z-index:1}
 /* mobile: sin foto ni quiebre — panel petróleo completo */
 @media (max-width:680px){
-  .menu{background:var(--petrol)}
+  .menu{background:var(--petrol);padding-bottom:clamp(48px,9vh,90px)}
   .menu::before{display:none}
+  /* dirección anclada abajo, con más aire respecto a los links */
+  .menu .menu-body .addr{margin-top:auto;padding-top:56px}
 }
 .menu .menu-top{display:flex;align-items:flex-start;justify-content:space-between}
 .menu .brand{color:var(--paper)}
