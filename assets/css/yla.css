@@ -107,8 +107,9 @@ em,i{font-family:var(--f-serif);font-style:normal;font-weight:400}
 .dots{
   display:grid;grid-template-columns:repeat(3,1fr);gap:3px;
   width:22px;height:22px;margin-top:2px;
+  color:#235e6e;
 }
-.dots span{width:4px;height:4px;border-radius:50%;background:#235e6e;transition:transform .4s var(--ease),opacity .4s}
+.dots span{width:4px;height:4px;border-radius:50%;background:currentColor;transition:transform .4s var(--ease),opacity .4s}
 .dots:hover span{opacity:.55}
 .dots:hover span:nth-child(5){opacity:1;transform:scale(1.5)}
 
